@@ -4,6 +4,7 @@ import ButtonGroups from "../components/Buttons/ButtonGroups";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import SignUp from "../components/Buttons/SignUp";
 import Login from "../components/Buttons/Login";
+import LoginSignup from "./LoginSignup";
 
 const Homescreen = () => {
   const { login, user, userArray, currentUser, setUserArray, showPortfolio } =
@@ -16,6 +17,14 @@ const Homescreen = () => {
   console.log("Login:" + login);
   console.log("Show Portfolio:" + showPortfolio);
 
+  const getTitle = (currentUser: string): string => {
+    if (showPortfolio) {
+      return "¡Te damos la bienvenida, " + currentUser + "!";
+    } else {
+      return "¡Te damos la bienvenida!";
+    }
+  };
+
   useEffect(() => {
     if (user.username != "" && user.password != "") {
       setUserArray((userArray: object[]) => [...userArray, user]);
@@ -24,32 +33,12 @@ const Homescreen = () => {
 
   return (
     <View>
-      {showPortfolio ? (
-        <View>
-          <Text style={styles.title}>
-            ¡Te damos la bienvenida, {currentUser}!
-          </Text>
-          <Image
-            style={styles.image}
-            source={require("../assets/images/hakyeon.jpg")}
-          />
-        </View>
-      ) : (
-        <View>
-          <Text style={styles.title}>¡Te damos la bienvenida!</Text>
-          <Image
-            style={styles.image}
-            source={require("../assets/images/hakyeon.jpg")}
-          />
-          {login ? (
-            <Login />
-          ) : signUp ? (
-            <SignUp setSignUp={setSignUp} />
-          ) : (
-            <ButtonGroups setSignUp={setSignUp} />
-          )}
-        </View>
-      )}
+      <Text style={styles.title}>{getTitle(currentUser)}</Text>
+      <Image
+        style={styles.image}
+        source={require("../assets/images/hakyeon.jpg")}
+      />
+      {!showPortfolio && <LoginSignup setSignUp={setSignUp} signUp={signUp} />}
     </View>
   );
 };

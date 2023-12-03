@@ -8,8 +8,7 @@ interface signUpProps {
 
 const SignUp = (props: signUpProps) => {
   const { setSignUp } = props;
-  const { user, setUser, userArray, setUserArray } =
-    useContext(UserInfoContext);
+  const { setUser } = useContext(UserInfoContext);
 
   const [userName, setUserName] = useState("");
   const [pw, setPw] = useState("");
@@ -46,24 +45,26 @@ export default SignUp;
 
 const styles = StyleSheet.create({
   buttonGroup: {
-    height: 120,
+    marginTop: 50,
+    height: 180,
     justifyContent: "space-around",
   },
 
   input: {
+    borderRadius: 5,
     height: 40,
     margin: 12,
     borderWidth: 1,
     padding: 10,
   },
   button: {
+    marginTop: 12,
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
-    elevation: 3,
     backgroundColor: "royalblue",
   },
   buttonText: {

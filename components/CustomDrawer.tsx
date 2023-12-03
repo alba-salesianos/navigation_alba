@@ -31,7 +31,7 @@ const CustomDrawer = () => {
       initialRouteName="Home"
       screenOptions={drawerNavigatorScreenOptions}
     >
-      <Drawer.Screen name="Home" component={Homescreen} />
+      <Drawer.Screen name="Homescreen" component={Homescreen} />
       <Drawer.Screen name="Porfolio" component={Portfolio} />
     </Drawer.Navigator>
   );

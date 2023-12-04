@@ -4,15 +4,15 @@ import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
 
-type Props = NativeStackScreenProps<RootStackParamList, "SignUp">;
+type Props = NativeStackScreenProps<RootStackParamList, "Signup">;
 
-const SignUp: React.FC<Props> = (props) => {
+const Signup: React.FC<Props> = (props) => {
   const { setUser } = useContext(UserInfoContext);
 
   const [userName, setUserName] = useState("");
   const [pw, setPw] = useState("");
 
-  const register = () => {
+  const handleSignup = () => {
     props.navigation.goBack();
     setUser({
       username: userName,
@@ -21,40 +21,49 @@ const SignUp: React.FC<Props> = (props) => {
   };
 
   return (
-    <View style={styles.buttonGroup}>
-      <TextInput
-        style={styles.input}
-        onChangeText={setUserName}
-        value={userName}
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={setPw}
-        value={pw}
-        secureTextEntry={true}
-      />
-      <Pressable style={styles.button} onPress={() => register()}>
-        <Text style={styles.buttonText}>Registrarse</Text>
-      </Pressable>
+    <View style={styles.container}>
+      <View style={styles.buttonGroup}>
+        <TextInput
+          style={styles.input}
+          placeholder="Introduzca usuario"
+          onChangeText={setUserName}
+          value={userName}
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={setPw}
+          placeholder="Introduzca contraseña"
+          value={pw}
+          secureTextEntry={true}
+        />
+        <Pressable style={styles.button} onPress={() => handleSignup()}>
+          <Text style={styles.buttonText}>Registrarse</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
-export default SignUp;
+export default Signup;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#fce8e6",
+  },
   buttonGroup: {
-    marginTop: 50,
-    height: 180,
+    height: 200,
     justifyContent: "space-around",
   },
-
   input: {
     borderRadius: 5,
-    height: 40,
+    height: 45,
     margin: 12,
     borderWidth: 1,
-    padding: 10,
+    padding: 12,
+    backgroundColor: "white",
+    borderColor: "grey",
   },
   button: {
     marginTop: 12,

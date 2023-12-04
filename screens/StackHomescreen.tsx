@@ -8,7 +8,7 @@ export type RootStackParamList = {
   LoginSignup: undefined;
   ButtonGroups: undefined;
   Login: undefined;
-  SignUp: undefined;
+  Signup: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();

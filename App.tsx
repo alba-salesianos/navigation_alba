@@ -9,17 +9,16 @@ export default function App() {
     <UserInfoProvider>
       <View style={styles.container}>
         <NavigationContainer>
-          <CustomDrawer/>
+          <CustomDrawer />
         </NavigationContainer>
       </View>
     </UserInfoProvider>
-    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#fce8e6",
   },
 });

@@ -15,8 +15,8 @@ function UserInfoProvider(props: UserInfoProviderProps) {
   const [showPortfolio, setshowPortfolio] = useState(false);
 
   let userInfo = {
-    username: "",
-    password: "",
+    username: "root",
+    password: "123",
   };
 
   const [user, setUser] = useState(userInfo);

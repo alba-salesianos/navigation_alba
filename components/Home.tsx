@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../screens/StackHomescreen";
@@ -7,7 +7,7 @@ import { RootStackParamList } from "../screens/StackHomescreen";
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 const Home: React.FC<Props> = (props) => {
-  const { currentUser, showPortfolio } = useContext(UserInfoContext);
+  const { currentUser, showPortfolio } = React.useContext(UserInfoContext);
 
   const getTitle = (currentUser: string): string => {
     if (showPortfolio) {
@@ -18,7 +18,7 @@ const Home: React.FC<Props> = (props) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>{getTitle(currentUser)}</Text>
       <Image
         style={styles.image}
@@ -35,13 +35,21 @@ const Home: React.FC<Props> = (props) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fce8e6",
+  },
   title: {
-    marginTop: 30,
+    borderRadius: 30,
+    margin: 30,
     textAlign: "center",
-    fontSize: 50,
+    fontSize: 40,
+    fontWeight: "500",
   },
   image: {
-    margin: 50,
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 40,
     alignSelf: "center",
     borderRadius: 100,
     height: "43%",

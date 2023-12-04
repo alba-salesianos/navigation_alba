@@ -7,13 +7,13 @@ import { RootStackParamList } from "../../screens/StackHomescreen";
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 const Login: React.FC<Props> = (props) => {
-  const { user, userArray, setshowPortfolio, setCurrentUser } =
+  const { userArray, setshowPortfolio, setCurrentUser } =
     useContext(UserInfoContext);
 
   const [userName, setUserName] = useState("");
   const [pw, setPw] = useState("");
 
-  const Login = () => {
+  const handleLogin = () => {
     userArray.map((userInfo) => {
       if (userName === userInfo.username && pw === userInfo.password) {
         setshowPortfolio(true);
@@ -22,41 +22,49 @@ const Login: React.FC<Props> = (props) => {
       }
     });
   };
-  console.log(user);
 
   return (
-    <View style={styles.buttonGroup}>
-      <TextInput
-        style={styles.input}
-        onChangeText={setUserName}
-        value={userName}
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={setPw}
-        value={pw}
-        secureTextEntry={true}
-      />
-      <Pressable style={styles.button} onPress={() => Login()}>
-        <Text style={styles.buttonText}>Iniciar Sesión</Text>
-      </Pressable>
+    <View style={styles.container}>
+      <View style={styles.buttonGroup}>
+        <TextInput
+          style={styles.input}
+          placeholder="Usuario"
+          onChangeText={setUserName}
+          value={userName}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Contraseña"
+          onChangeText={setPw}
+          value={pw}
+          secureTextEntry={true}
+        />
+        <Pressable style={styles.button} onPress={() => handleLogin()}>
+          <Text style={styles.buttonText}>Iniciar Sesión</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#fce8e6",
+  },
   buttonGroup: {
-    marginTop: 50,
-    height: 180,
+    height: 200,
     justifyContent: "space-around",
   },
-
   input: {
     borderRadius: 5,
-    height: 40,
+    height: 45,
     margin: 12,
     borderWidth: 1,
-    padding: 10,
+    padding: 12,
+    backgroundColor: "white",
+    borderColor: "grey",
   },
   button: {
     marginTop: 12,

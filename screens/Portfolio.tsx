@@ -32,8 +32,10 @@ const Portfolio = () => {
           </ScrollView>
         </View>
       ) : (
-        <View>
-          <Text>No tiene permiso para ver esta página</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>
+            No tiene permiso para ver esta página. Inicie sesión.
+          </Text>
         </View>
       )}
     </View>
@@ -43,12 +45,27 @@ const Portfolio = () => {
 export default Portfolio;
 
 const styles = StyleSheet.create({
+  textContainer: {
+    height: "80%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    margin: 20,
+    padding: 20,
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 20,
+    marginTop: 30,
+    textAlign: "center",
+    fontSize: 35,
+  },
   container: {
     color: "black",
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "85%",
+    height: "100%",
     backgroundColor: "#fce8e6",
   },
 

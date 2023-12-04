@@ -1,21 +1,32 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { LoginStackParamList } from "../../screens/LoginSignup";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 
-interface signUpProps {
-  setSignUp: Function;
-}
+type Props = NativeStackScreenProps<LoginStackParamList, "ButtonGroups">;
 
-const ButtonGroups = (props: signUpProps) => {
-  const { setLogin } = useContext(UserInfoContext);
-  const { setSignUp } = props;
+const ButtonGroups: React.FC<Props> = (props) => {
+  const { user, setUserArray } = useContext(UserInfoContext);
+
+  useEffect(() => {
+    if (user.username != "" && user.password != "") {
+      setUserArray((userArray: object[]) => [...userArray, user]);
+    }
+  }, [user]);
 
   return (
     <View style={styles.buttonGroup}>
-      <Pressable style={styles.button} onPress={() => setLogin(true)}>
+      <Pressable
+        style={styles.button}
+        onPress={() => props.navigation.push("Login")}
+      >
         <Text style={styles.buttonText}>Iniciar Sesión</Text>
       </Pressable>
-      <Pressable style={styles.button} onPress={() => setSignUp(true)}>
+      <Pressable
+        style={styles.button}
+        onPress={() => props.navigation.push("SignUp")}
+      >
         <Text style={styles.buttonText}>Crear Cuenta</Text>
       </Pressable>
     </View>

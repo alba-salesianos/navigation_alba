@@ -1,20 +1,19 @@
 import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
+import { LoginStackParamList } from "../../screens/LoginSignup";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-interface signUpProps {
-  setSignUp: (param: boolean) => void;
-}
+type Props = NativeStackScreenProps<LoginStackParamList, "SignUp">;
 
-const SignUp = (props: signUpProps) => {
-  const { setSignUp } = props;
+const SignUp: React.FC<Props> = (props) => {
   const { setUser } = useContext(UserInfoContext);
 
   const [userName, setUserName] = useState("");
   const [pw, setPw] = useState("");
 
   const register = () => {
-    setSignUp(false);
+    props.navigation.goBack();
     setUser({
       username: userName,
       password: pw,

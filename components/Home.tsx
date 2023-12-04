@@ -2,11 +2,11 @@ import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import React, { useContext } from "react";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../screens/Homescreen";
+import { RootStackParamList } from "../screens/StackHomescreen";
 
-type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
+type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
-const Home: React.FC<HomeScreenProps> = (props) => {
+const Home: React.FC<Props> = (props) => {
   const { currentUser, showPortfolio } = useContext(UserInfoContext);
 
   const getTitle = (currentUser: string): string => {

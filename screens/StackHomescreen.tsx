@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import LoginSignup from "./LoginSignup";
@@ -6,20 +6,12 @@ import Home from "../components/Home";
 
 export type RootStackParamList = {
   Home: undefined;
-  Identificarse: undefined;
+  LoginSignup: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const Homescreen = () => {
-  const { user, setUserArray } = useContext(UserInfoContext);
-
-  useEffect(() => {
-    if (user.username != "" && user.password != "") {
-      setUserArray((userArray: object[]) => [...userArray, user]);
-    }
-  }, [user]);
-
   return (
     <Stack.Navigator
       initialRouteName="Home"
@@ -28,7 +20,7 @@ const Homescreen = () => {
       }}
     >
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Identificarse" component={LoginSignup} />
+      <Stack.Screen name="LoginSignup" component={LoginSignup} />
     </Stack.Navigator>
   );
 };

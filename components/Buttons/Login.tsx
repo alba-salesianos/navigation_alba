@@ -1,9 +1,14 @@
 import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
 import React, { useContext, useState } from "react";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { LoginStackParamList } from "../../screens/LoginSignup";
+import Home from "../Home";
 
-const SignUp = () => {
-  const { user, userArray, setLogin, setshowPortfolio, setCurrentUser } =
+type Props = NativeStackScreenProps<LoginStackParamList, "Login">;
+
+const Login: React.FC<Props> = (props) => {
+  const { user, userArray, setshowPortfolio, setCurrentUser } =
     useContext(UserInfoContext);
 
   const [userName, setUserName] = useState("");
@@ -13,7 +18,7 @@ const SignUp = () => {
     userArray.map((userInfo) => {
       if (userName === userInfo.username && pw === userInfo.password) {
         setshowPortfolio(true);
-        setLogin(false);
+        props.navigation.pop();
         setCurrentUser(userInfo.username);
       }
     });
@@ -39,8 +44,6 @@ const SignUp = () => {
     </View>
   );
 };
-
-export default SignUp;
 
 const styles = StyleSheet.create({
   buttonGroup: {
@@ -74,3 +77,5 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
+
+export default Login;

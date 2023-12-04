@@ -1,29 +1,28 @@
-import { StyleSheet } from "react-native";
 import {
   DrawerNavigationOptions,
   createDrawerNavigator,
 } from "@react-navigation/drawer";
 import React from "react";
-import Homescreen from "../screens/Homescreen";
+import Homescreen from "../screens/StackHomescreen";
 import Portfolio from "../screens/Portfolio";
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = () => {
   const drawerNavigatorScreenOptions: DrawerNavigationOptions = {
-    headerTitle: "Nombre interesante",
+    headerTitle: "Nombre Interesante",
     headerTitleAlign: "center",
     headerStyle: {
       backgroundColor: "pink",
     },
     headerTintColor: "white",
     drawerItemStyle: {
-      width: "100%",
+      width: "93%",
     },
     drawerActiveTintColor: "white",
-    drawerActiveBackgroundColor: "lilac",
-    drawerInactiveTintColor: "black",
-    drawerInactiveBackgroundColor: "pink",
+    drawerActiveBackgroundColor: "pink",
+    drawerInactiveTintColor: "white",
+    drawerInactiveBackgroundColor: "#d182a3",
     drawerType: "slide",
   };
   return (
@@ -38,5 +37,3 @@ const CustomDrawer = () => {
 };
 
 export default CustomDrawer;
-
-const styles = StyleSheet.create({});

@@ -8,18 +8,12 @@ import { RootStackParamList } from "./StackHomescreen";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 
-export type LoginStackParamList = {
-  ButtonGroups: undefined;
-  Login: undefined;
-  SignUp: undefined;
-};
-
 type Props = NativeStackScreenProps<RootStackParamList, "LoginSignup">;
 
 const LoginSignup: React.FC<Props> = (props) => {
   const { showPortfolio } = useContext(UserInfoContext);
 
-  const Stack = createStackNavigator<LoginStackParamList>();
+  const Stack = createStackNavigator<RootStackParamList>();
 
   useEffect(() => {
     if (showPortfolio) {

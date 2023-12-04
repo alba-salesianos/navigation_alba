@@ -1,12 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { UserInfoContext } from "../contexts/UserInfoContext";
 import LoginSignup from "./LoginSignup";
 import Home from "../components/Home";
 
 export type RootStackParamList = {
   Home: undefined;
   LoginSignup: undefined;
+  ButtonGroups: undefined;
+  Login: undefined;
+  SignUp: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();

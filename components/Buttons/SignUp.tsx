@@ -1,10 +1,10 @@
 import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
 import React, { useContext, useState } from "react";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
-import { LoginStackParamList } from "../../screens/LoginSignup";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../screens/StackHomescreen";
 
-type Props = NativeStackScreenProps<LoginStackParamList, "SignUp">;
+type Props = NativeStackScreenProps<RootStackParamList, "SignUp">;
 
 const SignUp: React.FC<Props> = (props) => {
   const { setUser } = useContext(UserInfoContext);

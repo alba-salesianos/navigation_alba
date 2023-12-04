@@ -2,13 +2,25 @@ import {
   DrawerNavigationOptions,
   createDrawerNavigator,
 } from "@react-navigation/drawer";
-import React from "react";
+import React, { useContext } from "react";
 import Homescreen from "../screens/StackHomescreen";
 import Portfolio from "../screens/Portfolio";
+import SecretScreen from "../screens/SecretScreen";
+import { UserInfoContext } from "../contexts/UserInfoContext";
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = () => {
+  const { user } = useContext(UserInfoContext);
+
+  const checkSecret = (): boolean => {
+    if (user.username == "secreto") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const drawerNavigatorScreenOptions: DrawerNavigationOptions = {
     headerTitle: "Nombre Interesante",
     headerTitleAlign: "center",
@@ -32,6 +44,9 @@ const CustomDrawer = () => {
     >
       <Drawer.Screen name="Homescreen" component={Homescreen} />
       <Drawer.Screen name="Porfolio" component={Portfolio} />
+      {checkSecret() && (
+        <Drawer.Screen name="SecretScreen" component={SecretScreen} />
+      )}
     </Drawer.Navigator>
   );
 };

@@ -26,7 +26,7 @@ const Home: React.FC<Props> = (props) => {
       />
       <Pressable
         style={styles.button}
-        onPress={() => props.navigation.push("Identificarse")}
+        onPress={() => props.navigation.push("LoginSignup")}
       >
         <Text style={styles.buttonText}>Identifícate</Text>
       </Pressable>

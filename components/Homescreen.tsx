@@ -4,7 +4,7 @@ import { UserInfoContext } from "../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../screens/StackHomescreen";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Home">;
+type Props = NativeStackScreenProps<RootStackParamList, "Homescreen">;
 
 const Homescreen: React.FC<Props> = (props) => {
   const { currentUser, showPortfolio } = React.useContext(UserInfoContext);

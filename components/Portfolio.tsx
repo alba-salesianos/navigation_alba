@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import React from "react";
-import Card from "../components/Card";
-import { hobbiesData, hobbiesList } from "../components/HobbiesData";
+import Card from "./Card";
+import { hobbiesData, hobbiesList } from "./HobbiesData";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 
 const Portfolio = () => {

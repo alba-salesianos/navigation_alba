@@ -4,7 +4,7 @@ import StackLogin from "./StackLogin";
 import Homescreen from "../components/Homescreen";
 
 export type RootStackParamList = {
-  Home: undefined;
+  Homescreen: undefined;
   StackLogin: undefined;
   ButtonGroup: undefined;
   Login: undefined;
@@ -16,12 +16,12 @@ const Stack = createStackNavigator<RootStackParamList>();
 const StackHomescreen = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Homescreen"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Home" component={Homescreen} />
+      <Stack.Screen name="Homescreen" component={Homescreen} />
       <Stack.Screen name="StackLogin" component={StackLogin} />
     </Stack.Navigator>
   );

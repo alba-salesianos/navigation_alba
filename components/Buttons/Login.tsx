@@ -17,7 +17,7 @@ const Login: React.FC<Props> = (props) => {
     userArray.map((userInfo) => {
       if (userName === userInfo.username && pw === userInfo.password) {
         setshowPortfolio(true);
-        props.navigation.push("Home");
+        props.navigation.push("Homescreen");
         setCurrentUser(userInfo.username);
       }
     });

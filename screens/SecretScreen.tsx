@@ -3,7 +3,7 @@ import React from "react";
 
 const SecretScreen = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.text}>¡Aquí está tu premio!</Text>
       <Image
         style={styles.gif}
@@ -16,17 +16,28 @@ const SecretScreen = () => {
 export default SecretScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fce8e6",
+  },
   text: {
     textAlign: "center",
     fontSize: 30,
-    marginTop: 50,
+    margin: 50,
+    padding: 20,
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "grey",
+    borderRadius: 30,
   },
   gif: {
-    margin: 50,
+    margin: 20,
     alignSelf: "center",
-    borderRadius: 25,
+    borderRadius: 50,
     overlayColor: "#fce8e6",
     height: "43%",
     width: "80%",
+    borderWidth: 1,
+    borderColor: "grey",
   },
 });

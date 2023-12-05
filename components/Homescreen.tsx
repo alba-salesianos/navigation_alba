@@ -6,7 +6,7 @@ import { RootStackParamList } from "../screens/StackHomescreen";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
-const Home: React.FC<Props> = (props) => {
+const Homescreen: React.FC<Props> = (props) => {
   const { currentUser, showPortfolio } = React.useContext(UserInfoContext);
 
   const getTitle = (currentUser: string): string => {
@@ -26,13 +26,15 @@ const Home: React.FC<Props> = (props) => {
       />
       <Pressable
         style={styles.button}
-        onPress={() => props.navigation.push("LoginSignup")}
+        onPress={() => props.navigation.push("StackLogin")}
       >
         <Text style={styles.buttonText}>Identifícate</Text>
       </Pressable>
     </View>
   );
 };
+
+export default Homescreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -42,9 +44,13 @@ const styles = StyleSheet.create({
   title: {
     borderRadius: 30,
     margin: 30,
+    padding: 20,
     textAlign: "center",
     fontSize: 40,
     fontWeight: "500",
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "grey",
   },
   image: {
     marginLeft: 20,
@@ -54,15 +60,17 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     height: "43%",
     width: "80%",
+    borderWidth: 1,
+    borderColor: "grey",
   },
   button: {
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
+    marginTop: 20,
     paddingVertical: 12,
-    paddingHorizontal: 32,
+    paddingHorizontal: 60,
     borderRadius: 10,
-    elevation: 3,
     backgroundColor: "royalblue",
   },
   buttonText: {
@@ -73,5 +81,3 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-
-export default Home;

@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
-import React, { useContext, useState } from "react";
+import React from "react";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
@@ -7,10 +7,10 @@ import { RootStackParamList } from "../../screens/StackHomescreen";
 type Props = NativeStackScreenProps<RootStackParamList, "Signup">;
 
 const Signup: React.FC<Props> = (props) => {
-  const { setUser } = useContext(UserInfoContext);
+  const { setUser } = React.useContext(UserInfoContext);
 
-  const [userName, setUserName] = useState("");
-  const [pw, setPw] = useState("");
+  const [userName, setUserName] = React.useState("");
+  const [pw, setPw] = React.useState("");
 
   const handleSignup = () => {
     props.navigation.goBack();
@@ -25,14 +25,14 @@ const Signup: React.FC<Props> = (props) => {
       <View style={styles.buttonGroup}>
         <TextInput
           style={styles.input}
-          placeholder="Introduzca usuario"
+          placeholder="Usuario"
           onChangeText={setUserName}
           value={userName}
         />
         <TextInput
           style={styles.input}
           onChangeText={setPw}
-          placeholder="Introduzca contraseña"
+          placeholder="Contraseña"
           value={pw}
           secureTextEntry={true}
         />
@@ -60,9 +60,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 45,
     margin: 12,
-    borderWidth: 1,
     padding: 12,
     backgroundColor: "white",
+    borderWidth: 1,
     borderColor: "grey",
   },
   button: {

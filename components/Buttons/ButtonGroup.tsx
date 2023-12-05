@@ -4,9 +4,9 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 import { RootStackParamList } from "../../screens/StackHomescreen";
 
-type Props = NativeStackScreenProps<RootStackParamList, "ButtonGroups">;
+type Props = NativeStackScreenProps<RootStackParamList, "ButtonGroup">;
 
-const ButtonGroups: React.FC<Props> = (props) => {
+const ButtonGroup: React.FC<Props> = (props) => {
   const { user, setUserArray } = useContext(UserInfoContext);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const ButtonGroups: React.FC<Props> = (props) => {
   );
 };
 
-export default ButtonGroups;
+export default ButtonGroup;
 
 const styles = StyleSheet.create({
   container: {
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 80,
     borderRadius: 10,
-    elevation: 3,
     backgroundColor: "royalblue",
   },
   buttonText: {

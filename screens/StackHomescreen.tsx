@@ -1,19 +1,19 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginSignup from "./LoginSignup";
-import Home from "../components/Home";
+import StackLogin from "./StackLogin";
+import Homescreen from "../components/Homescreen";
 
 export type RootStackParamList = {
   Home: undefined;
-  LoginSignup: undefined;
-  ButtonGroups: undefined;
+  StackLogin: undefined;
+  ButtonGroup: undefined;
   Login: undefined;
   Signup: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-const Homescreen = () => {
+const StackHomescreen = () => {
   return (
     <Stack.Navigator
       initialRouteName="Home"
@@ -21,10 +21,10 @@ const Homescreen = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="LoginSignup" component={LoginSignup} />
+      <Stack.Screen name="Home" component={Homescreen} />
+      <Stack.Screen name="StackLogin" component={StackLogin} />
     </Stack.Navigator>
   );
 };
 
-export default Homescreen;
+export default StackHomescreen;

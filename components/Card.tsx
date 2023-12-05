@@ -9,30 +9,13 @@ function Card(props: Props) {
   const { hobby } = props;
 
   return (
-    <View style={styles.cardLight}>
-      <Text style={styles.fontLight}>{hobby}</Text>
+    <View style={styles.card}>
+      <Text>{hobby}</Text>
     </View>
   );
 }
 const styles = StyleSheet.create({
-  cardLight: {
-    borderRadius: 10,
-    padding: 20,
-
-    textAlign: "center",
-    fontWeight: "bold",
-    fontStyle: "italic",
-    fontSize: 16,
-    backgroundColor: "white",
-    margin: 10,
-  },
-  fontLight: {
-    color: "black",
-  },
-  fontDark: {
-    color: "black",
-  },
-  cardDark: {
+  card: {
     borderRadius: 10,
     padding: 20,
     textAlign: "center",
@@ -41,6 +24,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "white",
     margin: 10,
+    borderWidth: 1,
+    borderColor: "grey",
   },
 });
 export default Card;

@@ -3,7 +3,7 @@ import {
   createDrawerNavigator,
 } from "@react-navigation/drawer";
 import React from "react";
-import Homescreen from "../screens/StackHomescreen";
+import StackHomescreen from "../screens/StackHomescreen";
 import Portfolio from "../screens/Portfolio";
 import SecretScreen from "../screens/SecretScreen";
 import { UserInfoContext } from "../contexts/UserInfoContext";
@@ -43,8 +43,8 @@ const CustomDrawer = () => {
       initialRouteName="Home"
       screenOptions={drawerNavigatorScreenOptions}
     >
-      <Drawer.Screen name="Pantalla de inicio" component={Homescreen} />
-      <Drawer.Screen name="Porfolio" component={Portfolio} />
+      <Drawer.Screen name="Pantalla de inicio" component={StackHomescreen} />
+      <Drawer.Screen name="Portfolio" component={Portfolio} />
       {checkSecret() && (
         <Drawer.Screen name="Secreto" component={SecretScreen} />
       )}

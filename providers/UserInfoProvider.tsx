@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   UserInfoTypeContext,
   UserInfoContext,
@@ -11,21 +11,18 @@ type UserInfoProviderProps = {
 function UserInfoProvider(props: UserInfoProviderProps) {
   const { children } = props;
 
-  const [login, setLogin] = useState(false);
-  const [showPortfolio, setshowPortfolio] = useState(false);
+  const [showPortfolio, setshowPortfolio] = React.useState(false);
 
   let userInfo = {
     username: "root",
     password: "123",
   };
 
-  const [user, setUser] = useState(userInfo);
-  const [userArray, setUserArray] = useState([]);
-  const [currentUser, setCurrentUser] = useState("");
+  const [user, setUser] = React.useState(userInfo);
+  const [userArray, setUserArray] = React.useState([]);
+  const [currentUser, setCurrentUser] = React.useState("");
 
   const defaultValue: UserInfoTypeContext = {
-    login,
-    setLogin,
     showPortfolio,
     setshowPortfolio,
     user,

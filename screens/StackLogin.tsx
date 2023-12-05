@@ -1,23 +1,23 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
 import Login from "../components/Buttons/Login";
-import ButtonGroups from "../components/Buttons/ButtonGroups";
+import Signup from "../components/Buttons/Signup";
+import ButtonGroup from "../components/Buttons/ButtonGroup";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RootStackParamList } from "./StackHomescreen";
-import Signup from "../components/Buttons/Signup";
 
-const LoginSignup = () => {
+const StackLogin = () => {
   const Stack = createStackNavigator<RootStackParamList>();
 
   return (
     <View style={styles.container}>
       <Stack.Navigator
-        initialRouteName="ButtonGroups"
+        initialRouteName="ButtonGroup"
         screenOptions={{
           headerShown: false,
         }}
       >
-        <Stack.Screen name="ButtonGroups" component={ButtonGroups} />
+        <Stack.Screen name="ButtonGroup" component={ButtonGroup} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
       </Stack.Navigator>
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginSignup;
+export default StackLogin;

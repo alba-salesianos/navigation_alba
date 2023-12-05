@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 import Card from "../components/Card";
 import { hobbiesData, hobbiesList } from "../components/HobbiesData";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 
 const Portfolio = () => {
-  const { showPortfolio } = useContext(UserInfoContext);
+  const { showPortfolio } = React.useContext(UserInfoContext);
 
   return (
     <View style={styles.container}>
@@ -16,10 +16,10 @@ const Portfolio = () => {
               style={styles.avatar}
               source={require("../assets/images/haechan.webp")}
             ></Image>
-            <View style={styles.infoBackground}>
-              <Text style={styles.description}>Descripción</Text>
+            <View style={styles.infoCard}>
+              <Text style={styles.descriptionTitle}>Descripción</Text>
               <Text style={styles.descriptionBody}>
-                Programadora y traductora. Y en mis ratos libres me gusta
+                Programadora y traductora. En mis ratos libres, me gusta
                 conquistar el mundo.
               </Text>
             </View>
@@ -34,7 +34,7 @@ const Portfolio = () => {
       ) : (
         <View style={styles.textContainer}>
           <Text style={styles.text}>
-            No tiene permiso para ver esta página. Inicie sesión.
+            No tienes permiso para ver esta página. Inicia sesión.
           </Text>
         </View>
       )}
@@ -53,22 +53,18 @@ const styles = StyleSheet.create({
   text: {
     margin: 20,
     padding: 20,
-    borderColor: "black",
-    borderWidth: 1,
     borderRadius: 20,
     marginTop: 30,
     textAlign: "center",
     fontSize: 35,
   },
   container: {
-    color: "black",
     width: "100%",
     alignItems: "center",
     justifyContent: "space-between",
     height: "100%",
     backgroundColor: "#fce8e6",
   },
-
   avatar: {
     height: 90,
     width: 90,
@@ -80,26 +76,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  infoBackground: {
-    color: "black",
+  infoCard: {
     margin: 10,
     backgroundColor: "white",
     padding: 10,
     borderRadius: 10,
     width: "70%",
+    borderWidth: 1,
+    borderColor: "grey",
   },
-  description: {
-    color: "black",
+  descriptionTitle: {
     textAlign: "center",
     fontWeight: "700",
     fontSize: 20,
   },
   descriptionBody: {
-    color: "black",
+    textAlign: "justify",
+    paddingLeft: 10,
+    paddingRight: 10,
   },
-
   subtitle: {
-    color: "black",
     fontWeight: "900",
     textTransform: "capitalize",
     fontSize: 20,

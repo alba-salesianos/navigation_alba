@@ -1,12 +1,12 @@
 import React from "react";
-import Portfolio from "../components/Portfolio";
-import QR from "../components/QR";
+import Portfolio from "../components/Portfolio/Portfolio";
+import QR from "../components/Portfolio/QR";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
-const StackPortfolio = () => {
+const TabPortfolio = () => {
   return (
     <Tab.Navigator
       initialRouteName="PortfolioScreen"
@@ -38,4 +38,4 @@ const StackPortfolio = () => {
   );
 };
 
-export default StackPortfolio;
+export default TabPortfolio;

@@ -11,7 +11,7 @@ type UserInfoProviderProps = {
 function UserInfoProvider(props: UserInfoProviderProps) {
   const { children } = props;
 
-  const [showPortfolio, setshowPortfolio] = React.useState(true);
+  const [showPortfolio, setshowPortfolio] = React.useState(false);
 
   let userInfo = {
     username: "root",

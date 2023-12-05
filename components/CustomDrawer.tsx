@@ -4,14 +4,14 @@ import {
 } from "@react-navigation/drawer";
 import React from "react";
 import StackHomescreen from "../screens/StackHomescreen";
-import SecretScreen from "../screens/SecretScreen";
+import SecretScreen from "./SecretScreen";
 import { UserInfoContext } from "../contexts/UserInfoContext";
-import StackPortfolio from "../screens/StackPortfolio";
+import TabPortfolio from "../screens/TabPortfolio";
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = () => {
-  const { user } = React.useContext(UserInfoContext);
+  const { user, showPortfolio } = React.useContext(UserInfoContext);
 
   const checkSecret = (): boolean => {
     if (user.username == "secreto" && user.password == "123") {
@@ -22,7 +22,7 @@ const CustomDrawer = () => {
   };
 
   const drawerNavigatorScreenOptions: DrawerNavigationOptions = {
-    headerTitle: "Nombre Interesante",
+    headerTitle: "App de Alba",
     headerTitleAlign: "center",
     headerStyle: {
       backgroundColor: "#FFB6C1",
@@ -44,7 +44,9 @@ const CustomDrawer = () => {
       screenOptions={drawerNavigatorScreenOptions}
     >
       <Drawer.Screen name="Pantalla de inicio" component={StackHomescreen} />
-      <Drawer.Screen name="Portfolio" component={StackPortfolio} />
+      {showPortfolio && (
+        <Drawer.Screen name="Portfolio" component={TabPortfolio} />
+      )}
       {checkSecret() && (
         <Drawer.Screen name="Secreto" component={SecretScreen} />
       )}

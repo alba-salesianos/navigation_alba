@@ -24,12 +24,14 @@ const Homescreen: React.FC<Props> = (props) => {
         style={styles.image}
         source={require("../assets/images/hakyeon.jpg")}
       />
-      <Pressable
-        style={styles.button}
-        onPress={() => props.navigation.push("StackLogin")}
-      >
-        <Text style={styles.buttonText}>Identifícate</Text>
-      </Pressable>
+      {!showPortfolio && (
+        <Pressable
+          style={styles.button}
+          onPress={() => props.navigation.push("StackLogin")}
+        >
+          <Text style={styles.buttonText}>Identifícate</Text>
+        </Pressable>
+      )}
     </View>
   );
 };

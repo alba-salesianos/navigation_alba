@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import React from "react";
 import Card from "./Card";
 import { hobbiesData, hobbiesList } from "./HobbiesData";
-import { UserInfoContext } from "../contexts/UserInfoContext";
+import { UserInfoContext } from "../../contexts/UserInfoContext";
 
 const Portfolio = () => {
   const { showPortfolio } = React.useContext(UserInfoContext);
@@ -14,7 +14,7 @@ const Portfolio = () => {
           <View style={styles.infoContainer}>
             <Image
               style={styles.avatar}
-              source={require("../assets/images/haechan.webp")}
+              source={require("../../assets/images/haechan.webp")}
             ></Image>
             <View style={styles.infoCard}>
               <Text style={styles.descriptionTitle}>Descripción</Text>

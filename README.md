@@ -1,4 +1,4 @@
-# Aplicación "Nombre Interesante"
+# Aplicación "App de Alba"
 
 Esta es una aplicación sencilla con una pantalla de bienvenida, una pantalla de Inicio de Sesión y de Registro y una pantalla con el portfolio.
 

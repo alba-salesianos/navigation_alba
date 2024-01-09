@@ -7,7 +7,8 @@ import { RootStackParamList } from "../screens/StackHomescreen";
 type Props = NativeStackScreenProps<RootStackParamList, "Homescreen">;
 
 const Homescreen: React.FC<Props> = (props) => {
-  const { currentUser, showPortfolio } = React.useContext(UserInfoContext);
+  const { currentUser, showPortfolio, setshowPortfolio } =
+    React.useContext(UserInfoContext);
 
   const getTitle = (currentUser: string): string => {
     if (showPortfolio) {
@@ -24,7 +25,14 @@ const Homescreen: React.FC<Props> = (props) => {
         style={styles.image}
         source={require("../assets/images/hakyeon.jpg")}
       />
-      {!showPortfolio && (
+      {showPortfolio ? (
+        <Pressable
+          style={styles.button}
+          onPress={() => setshowPortfolio(false)}
+        >
+          <Text style={styles.buttonText}>Cerrar sesión</Text>
+        </Pressable>
+      ) : (
         <Pressable
           style={styles.button}
           onPress={() => props.navigation.push("StackLogin")}

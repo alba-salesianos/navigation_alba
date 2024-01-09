@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import CustomDrawer from "./components/CustomDrawer";
 import UserInfoProvider from "./providers/UserInfoProvider";
 
+// endpoint: 172.16.102.33:8888/users/all
+
 export default function App() {
   return (
     <UserInfoProvider>

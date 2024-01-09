@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
 import Login from "../components/Buttons/Login";
-import Signup from "../components/Buttons/Signup";
+import Signup from "../components/Buttons/SignUp";
 import ButtonGroup from "../components/Buttons/ButtonGroup";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RootStackParamList } from "./StackHomescreen";

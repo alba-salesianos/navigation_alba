@@ -31,6 +31,12 @@ const Signup: React.FC<Props> = (props) => {
         />
         <TextInput
           style={styles.input}
+          placeholder="Email"
+          onChangeText={setUserName}
+          value={userName}
+        />
+        <TextInput
+          style={styles.input}
           onChangeText={setPw}
           placeholder="Contraseña"
           value={pw}

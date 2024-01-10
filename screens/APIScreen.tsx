@@ -1,19 +1,12 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { fetchActivity } from "../services/boredActivities";
-import ActivityList from "../components/Activities/ActivityList";
+import { fetchAllUsers } from "../services/fetchUsers";
 
 const APIScreen = () => {
-  const [activity, setActivity] = React.useState("");
-  const [activitiesList, setActivitiesList] = React.useState<string[]>([]);
-
   const fetchActivities = () => {
     const fetchData = async () => {
-      const newActivity = await fetchActivity();
-
-      console.log(newActivity);
-      setActivity(newActivity);
-      setActivitiesList((list) => [...list, newActivity]);
+      const name: string = await fetchAllUsers();
+      console.log(`El nombre es: ${name}`);
     };
 
     fetchData();
@@ -24,14 +17,10 @@ const APIScreen = () => {
       <Pressable
         onPress={fetchActivities}
         style={styles.submitButton}
-        accessibilityLabel="buscar actividades"
+        accessibilityLabel="buscar usuario"
       >
-        <Text style={styles.buttonText}> Buscar actividades </Text>
+        <Text style={styles.buttonText}> Buscar usuario </Text>
       </Pressable>
-      <ActivityList
-        activitiesList={activitiesList}
-        setActivitiesList={setActivitiesList}
-      />
     </View>
   );
 };

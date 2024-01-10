@@ -11,6 +11,8 @@ const Homescreen: React.FC<Props> = (props) => {
     React.useContext(UserInfoContext);
 
   const getTitle = (currentUser: string): string => {
+    console.log();
+
     if (showPortfolio) {
       return "¡Te damos la bienvenida, " + currentUser + "!";
     } else {

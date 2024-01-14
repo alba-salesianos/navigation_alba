@@ -3,6 +3,7 @@ import {
   UserInfoTypeContext,
   UserInfoContext,
 } from "../contexts/UserInfoContext";
+import { UserInfo } from "../types/UserInfo";
 
 type UserInfoProviderProps = {
   children: JSX.Element | JSX.Element[];
@@ -13,12 +14,13 @@ function UserInfoProvider(props: UserInfoProviderProps) {
 
   const [showPortfolio, setshowPortfolio] = React.useState(false);
 
-  let userInfo = {
-    username: "root",
+  let userDefault: UserInfo = {
+    name: "root",
+    email: "a@gmail.com",
     password: "123",
   };
 
-  const [user, setUser] = React.useState(userInfo);
+  const [user, setUser] = React.useState(userDefault);
   const [userArray, setUserArray] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState("");
 

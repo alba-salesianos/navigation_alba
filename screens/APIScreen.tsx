@@ -1,11 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { fetchAllUsers } from "../services/fetchUsers";
+import { fetchUser } from "../services/fetchUsers";
+import { UserInfoContext } from "../contexts/UserInfoContext";
 
 const APIScreen = () => {
+  const { user } = React.useContext(UserInfoContext);
   const fetchActivities = () => {
     const fetchData = async () => {
-      const name: string = await fetchAllUsers();
+      const name = await fetchUser(user);
       console.log(`El nombre es: ${name}`);
     };
 

@@ -7,15 +7,17 @@ import { RootStackParamList } from "../../screens/StackHomescreen";
 type Props = NativeStackScreenProps<RootStackParamList, "Signup">;
 
 const Signup: React.FC<Props> = (props) => {
-  const { setUser } = React.useContext(UserInfoContext);
+  const { user, setUser } = React.useContext(UserInfoContext);
 
   const [userName, setUserName] = React.useState("");
+  const [eMail, seteMail] = React.useState("");
   const [pw, setPw] = React.useState("");
 
   const handleSignup = () => {
     props.navigation.goBack();
     setUser({
-      username: userName,
+      name: userName,
+      email: eMail,
       password: pw,
     });
   };
@@ -32,8 +34,8 @@ const Signup: React.FC<Props> = (props) => {
         <TextInput
           style={styles.input}
           placeholder="Email"
-          onChangeText={setUserName}
-          value={userName}
+          onChangeText={seteMail}
+          value={eMail}
         />
         <TextInput
           style={styles.input}

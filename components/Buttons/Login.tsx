@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
+import { fetchUser } from "../../services/fetchUsers";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
@@ -13,14 +14,29 @@ const Login: React.FC<Props> = (props) => {
   const [userName, setUserName] = useState("");
   const [pw, setPw] = useState("");
 
+  const [loginUser, setLoginUser] = useState({
+    name: "",
+    password: "",
+  });
+
+  const loginUsers = () => {
+    const fetchData = async () => {
+      const name = await fetchUser(loginUser);
+      console.log(`El nombre es: ${name}`);
+    };
+
+    fetchData();
+  };
+
   const handleLogin = () => {
-    userArray.map((userInfo) => {
-      if (userName === userInfo.username && pw === userInfo.password) {
-        setshowPortfolio(true);
-        props.navigation.push("Homescreen");
-        setCurrentUser(userInfo.username);
-      }
+    // no necesito recorrer el array, hago el fetchUser y ya
+    setLoginUser({
+      name: userName,
+      password: pw,
     });
+    loginUsers();
+    setshowPortfolio(true);
+    props.navigation.push("Homescreen");
   };
 
   return (

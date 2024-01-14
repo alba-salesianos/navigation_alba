@@ -15,7 +15,7 @@ const CustomDrawer = () => {
   const { user, showPortfolio } = React.useContext(UserInfoContext);
 
   const checkSecret = (): boolean => {
-    if (user.username == "secreto" && user.password == "123") {
+    if (user.name == "secreto" && user.password == "123") {
       return true;
     } else {
       return false;

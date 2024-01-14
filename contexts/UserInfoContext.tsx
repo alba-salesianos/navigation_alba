@@ -3,11 +3,11 @@ import { createContext } from "react";
 export type UserInfoTypeContext = {
   showPortfolio: boolean;
   setshowPortfolio: Function;
-  user: { username: string; password: string };
+  user: { name: string; email?: string; password: string };
   setUser: Function;
   currentUser: string;
   setCurrentUser: Function;
-  userArray: { username: string; password: string }[];
+  userArray: { name: string; email?: string; password: string }[];
   setUserArray: Function;
 };
 

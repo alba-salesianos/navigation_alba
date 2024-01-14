@@ -3,15 +3,27 @@ import React, { useContext, useEffect } from "react";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 import { RootStackParamList } from "../../screens/StackHomescreen";
+import { fetchUser } from "../../services/fetchUsers";
 
 type Props = NativeStackScreenProps<RootStackParamList, "ButtonGroup">;
 
 const ButtonGroup: React.FC<Props> = (props) => {
   const { user, setUserArray } = useContext(UserInfoContext);
 
+  const registerUsers = () => {
+    const fetchData = async () => {
+      const name = await fetchUser(user);
+      console.log(`El nombre es: ${name}`);
+    };
+
+    fetchData();
+  };
+
   useEffect(() => {
-    if (user.username != "" && user.password != "") {
+    if (user.name != "" && user.email != "" && user.password != "") {
       setUserArray((userArray: object[]) => [...userArray, user]);
+      registerUsers();
+      console.log(user);
     }
   }, [user]);
 

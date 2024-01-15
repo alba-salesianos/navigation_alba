@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
@@ -8,35 +8,49 @@ import { fetchUser } from "../../services/fetchUsers";
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 const Login: React.FC<Props> = (props) => {
-  const { userArray, setshowPortfolio, setCurrentUser } =
+  const { user, setUser, setshowPortfolio, setCurrentUser } =
     useContext(UserInfoContext);
 
-  const [userName, setUserName] = useState("");
-  const [pw, setPw] = useState("");
+  const loginUsers = async (): Promise<boolean> => {
+    let response = true;
+    try {
+      const name = await fetchUser(user, "login");
+      console.log(`El nombre es: ${name}`);
+      if (name == null) {
+        response = false;
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      response = false;
+    }
+    return response;
+  };
 
-  const [loginUser, setLoginUser] = useState({
+  const [formData, setFormData] = React.useState({
     name: "",
     password: "",
   });
 
-  const loginUsers = () => {
-    const fetchData = async () => {
-      const name = await fetchUser(loginUser);
-      console.log(`El nombre es: ${name}`);
-    };
-
-    fetchData();
+  const handleInputChange = async (field: string, value: string) => {
+    console.log(formData);
+    setFormData({
+      ...formData,
+      [field]: value,
+    });
+    await setUser({
+      name: formData.name,
+      password: formData.password,
+    });
   };
 
-  const handleLogin = () => {
-    // no necesito recorrer el array, hago el fetchUser y ya
-    setLoginUser({
-      name: userName,
-      password: pw,
-    });
-    loginUsers();
-    setshowPortfolio(true);
-    props.navigation.push("Homescreen");
+  const handleLogin = async () => {
+    if (await loginUsers()) {
+      setCurrentUser(user.name);
+      setshowPortfolio(true);
+      props.navigation.push("Homescreen");
+    } else {
+      console.log("No se ha encontrado el usuario.");
+    }
   };
 
   return (
@@ -45,16 +59,17 @@ const Login: React.FC<Props> = (props) => {
         <TextInput
           style={styles.input}
           placeholder="Usuario"
-          onChangeText={setUserName}
-          value={userName}
+          onChangeText={(value) => handleInputChange("name", value)}
+          value={formData.name}
         />
         <TextInput
           style={styles.input}
+          onChangeText={(value) => handleInputChange("password", value)}
           placeholder="Contraseña"
-          onChangeText={setPw}
-          value={pw}
+          value={formData.password}
           secureTextEntry={true}
         />
+
         <Pressable style={styles.button} onPress={() => handleLogin()}>
           <Text style={styles.buttonText}>Iniciar Sesión</Text>
         </Pressable>

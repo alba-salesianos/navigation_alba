@@ -1,6 +1,6 @@
 import { UserInfo } from "../types/UserInfo";
 
-const LOGIN_API = "http://172.16.100.69:8888/users/login";
+const LOGIN_API = "http://192.168.1.33:8888/users/";
 // usar la ip de tu propio ordenador a la hora de ejecutar la api, npm run dev
 
 const getInitRequest = (httpVerb: string, user: UserInfo) => {
@@ -12,24 +12,32 @@ const getInitRequest = (httpVerb: string, user: UserInfo) => {
   return init;
 };
 
-export const fetchUser = async (user2: UserInfo) => {
+export const fetchUser = async (userData: UserInfo, mode: string) => {
   let user: string = "_";
   try {
-    const request: RequestInfo = `${LOGIN_API}`;
+    const request: RequestInfo = LOGIN_API + mode;
 
-    const response = await fetch(request, getInitRequest("POST", user2));
+    const response = await fetch(request, getInitRequest("POST", userData));
 
-    if (response.status == 400) {
+    if (response.status === 401) {
       console.log("Algo hay mal");
-
       return null;
-    } else if (response.status == 200) {
+    } else if (response.status === 200) {
       const json = await response.json();
       user = json.name;
+      console.log("Usuario loggeado correctamente.");
       return user;
+    } else if (response.status === 201) {
+      const json = await response.json();
+      user = json.name;
+      console.log("Usuario registrado correctamente");
+      return user;
+    } else {
+      console.log("Unhandled response status:", response.status);
+      return null;
     }
   } catch (error) {
-    console.log(error);
+    console.error("Error during fetchUser:", error);
   }
   return user;
 };

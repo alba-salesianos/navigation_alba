@@ -3,23 +3,43 @@ import React from "react";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
+import { fetchUser } from "../../services/fetchUsers";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Signup">;
 
 const Signup: React.FC<Props> = (props) => {
   const { user, setUser } = React.useContext(UserInfoContext);
 
-  const [userName, setUserName] = React.useState("");
-  const [eMail, seteMail] = React.useState("");
-  const [pw, setPw] = React.useState("");
+  const registerUsers = async () => {
+    try {
+      const name = await fetchUser(user, "register");
+      console.log(`El nombre es: ${name}`);
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  };
+
+  const [formData, setFormData] = React.useState({
+    userName: "",
+    eMail: "",
+    pw: "",
+  });
+
+  const handleInputChange = async (field: string, value: string) => {
+    setFormData({
+      ...formData,
+      [field]: value,
+    });
+    await setUser({
+      name: formData.userName,
+      email: formData.eMail,
+      password: formData.pw,
+    });
+  };
 
   const handleSignup = () => {
     props.navigation.goBack();
-    setUser({
-      name: userName,
-      email: eMail,
-      password: pw,
-    });
+    registerUsers();
   };
 
   return (
@@ -28,20 +48,20 @@ const Signup: React.FC<Props> = (props) => {
         <TextInput
           style={styles.input}
           placeholder="Usuario"
-          onChangeText={setUserName}
-          value={userName}
+          onChangeText={(value) => handleInputChange("userName", value)}
+          value={formData.userName}
         />
         <TextInput
           style={styles.input}
           placeholder="Email"
-          onChangeText={seteMail}
-          value={eMail}
+          onChangeText={(value) => handleInputChange("eMail", value)}
+          value={formData.eMail}
         />
         <TextInput
           style={styles.input}
-          onChangeText={setPw}
+          onChangeText={(value) => handleInputChange("pw", value)}
           placeholder="Contraseña"
-          value={pw}
+          value={formData.pw}
           secureTextEntry={true}
         />
         <Pressable style={styles.button} onPress={() => handleSignup()}>

@@ -7,7 +7,7 @@ const APIScreen = () => {
   const { user } = React.useContext(UserInfoContext);
   const fetchActivities = () => {
     const fetchData = async () => {
-      const name = await fetchUser(user);
+      const name = await fetchUser(user, "login");
       console.log(`El nombre es: ${name}`);
     };
 

@@ -4,6 +4,7 @@ import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
 import { fetchUser } from "../../services/fetchUsers";
+import Container, { Toast } from "toastify-react-native";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
@@ -42,17 +43,23 @@ const Login: React.FC<Props> = (props) => {
   };
 
   const handleLogin = async () => {
-    if (await loginUsers()) {
-      setCurrentUser(user.name);
-      setshowPortfolio(true);
-      props.navigation.push("Homescreen");
+    if (formData.name == "" || formData.password == "") {
+      Toast.warn("Capón, rellena los 2 campos.", "top");
     } else {
-      console.log("No se ha encontrado el usuario.");
+      if (await loginUsers()) {
+        setCurrentUser(user.name);
+        setshowPortfolio(true);
+        props.navigation.push("Homescreen");
+      } else {
+        Toast.error("Usuario o contraseña incorrecta.", "top");
+        console.log("No se ha encontrado el usuario.");
+      }
     }
   };
 
   return (
     <View style={styles.container}>
+      <Container width={370} />
       <View style={styles.buttonGroup}>
         <TextInput
           style={styles.input}

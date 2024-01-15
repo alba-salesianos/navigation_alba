@@ -4,6 +4,7 @@ import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
 import { fetchUser } from "../../services/fetchUsers";
+import Container, { Toast } from "toastify-react-native";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Signup">;
 
@@ -42,15 +43,25 @@ const Signup: React.FC<Props> = (props) => {
   };
 
   const handleSignup = async () => {
-    if (await registerUsers()) {
-      props.navigation.goBack();
+    if (
+      formData.name == "" ||
+      formData.password == "" ||
+      formData.email == ""
+    ) {
+      Toast.warn("Capón, rellena los 3 campos.", "top");
     } else {
-      console.log("Este usuario existe o falta algún dato.");
+      if (await registerUsers()) {
+        props.navigation.goBack();
+      } else {
+        Toast.error("Falta dato o usuario existente.", "top");
+        console.log("Este usuario existe o falta algún dato.");
+      }
     }
   };
 
   return (
     <View style={styles.container}>
+      <Container width={370} />
       <View style={styles.buttonGroup}>
         <TextInput
           style={styles.input}

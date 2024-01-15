@@ -1,9 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useContext, useEffect } from "react";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { UserInfoContext } from "../../contexts/UserInfoContext";
 import { RootStackParamList } from "../../screens/StackHomescreen";
-import { fetchUser } from "../../services/fetchUsers";
 
 type Props = NativeStackScreenProps<RootStackParamList, "ButtonGroup">;
 

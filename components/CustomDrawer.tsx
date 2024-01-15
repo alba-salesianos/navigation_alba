@@ -7,7 +7,6 @@ import StackHomescreen from "../screens/StackHomescreen";
 import SecretScreen from "./SecretScreen";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import TabPortfolio from "../screens/TabPortfolio";
-import APIScreen from "../screens/APIScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -51,7 +50,6 @@ const CustomDrawer = () => {
       {checkSecret() && (
         <Drawer.Screen name="Secreto" component={SecretScreen} />
       )}
-      <Drawer.Screen name="Buscar Actividades" component={APIScreen} />
     </Drawer.Navigator>
   );
 };

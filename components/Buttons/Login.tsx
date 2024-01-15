@@ -14,9 +14,11 @@ const Login: React.FC<Props> = (props) => {
   const loginUsers = async (): Promise<boolean> => {
     let response = true;
     try {
-      const name = await fetchUser(user, "login");
-      console.log(`El nombre es: ${name}`);
-      if (name == null) {
+      const loggedUser = await fetchUser(formData, "login");
+      if (loggedUser != null) {
+        setUser(loggedUser);
+        console.log(`El nombre es: ${user.name}`);
+      } else {
         response = false;
       }
     } catch (error) {
@@ -36,10 +38,6 @@ const Login: React.FC<Props> = (props) => {
     setFormData({
       ...formData,
       [field]: value,
-    });
-    await setUser({
-      name: formData.name,
-      password: formData.password,
     });
   };
 

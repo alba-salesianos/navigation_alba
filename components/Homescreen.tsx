@@ -3,11 +3,12 @@ import React from "react";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../screens/StackHomescreen";
+import { logOut } from "../services/fetchUsers";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Homescreen">;
 
 const Homescreen: React.FC<Props> = (props) => {
-  const { currentUser, showPortfolio, setshowPortfolio } =
+  const { currentUser, showPortfolio, setshowPortfolio, user } =
     React.useContext(UserInfoContext);
 
   const getTitle = (currentUser: string): string => {
@@ -18,6 +19,11 @@ const Homescreen: React.FC<Props> = (props) => {
     }
   };
 
+  const handleLogout = () => {
+    console.log(logOut(user));
+    setshowPortfolio(false);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{getTitle(currentUser)}</Text>
@@ -26,10 +32,7 @@ const Homescreen: React.FC<Props> = (props) => {
         source={require("../assets/images/hakyeon.jpg")}
       />
       {showPortfolio ? (
-        <Pressable
-          style={styles.button}
-          onPress={() => setshowPortfolio(false)}
-        >
+        <Pressable style={styles.button} onPress={() => handleLogout()}>
           <Text style={styles.buttonText}>Cerrar sesión</Text>
         </Pressable>
       ) : (

@@ -9,7 +9,7 @@ import Container, { Toast } from "toastify-react-native";
 type Props = NativeStackScreenProps<RootStackParamList, "Signup">;
 
 const Signup: React.FC<Props> = (props) => {
-  const { user, setUser } = React.useContext(UserInfoContext);
+  const { setUser } = React.useContext(UserInfoContext);
 
   const registerUsers = async (): Promise<boolean> => {
     let response = true;
@@ -52,7 +52,7 @@ const Signup: React.FC<Props> = (props) => {
       if (await registerUsers()) {
         props.navigation.goBack();
       } else {
-        Toast.error("Falta dato o usuario existente.", "top");
+        Toast.error("Alguno de estos datos ya existe.", "top");
       }
     }
   };

@@ -2,7 +2,6 @@ import { UserInfo } from "../types/UserInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LOGIN_API = "http://172.16.103.246:8888/users/";
-// usar la ip de tu propio ordenador a la hora de ejecutar la api, npm run dev
 
 const getInitRequest = (httpVerb: string, user: UserInfo) => {
   const init: RequestInit = {

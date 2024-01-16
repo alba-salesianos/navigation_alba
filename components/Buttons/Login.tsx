@@ -18,7 +18,6 @@ const Login: React.FC<Props> = (props) => {
       const loggedUser = await fetchUser(formData, "login");
       if (loggedUser != null) {
         setUser(loggedUser);
-        console.log(`El nombre es: ${user.name}`);
       } else {
         response = false;
       }
@@ -35,7 +34,6 @@ const Login: React.FC<Props> = (props) => {
   });
 
   const handleInputChange = async (field: string, value: string) => {
-    console.log(formData);
     setFormData({
       ...formData,
       [field]: value,
@@ -47,12 +45,11 @@ const Login: React.FC<Props> = (props) => {
       Toast.warn("Capón, rellena los 2 campos.", "top");
     } else {
       if (await loginUsers()) {
-        setCurrentUser(user.name);
+        setCurrentUser(formData.name);
         setshowPortfolio(true);
         props.navigation.push("Homescreen");
       } else {
         Toast.error("Usuario o contraseña incorrecta.", "top");
-        console.log("No se ha encontrado el usuario.");
       }
     }
   };

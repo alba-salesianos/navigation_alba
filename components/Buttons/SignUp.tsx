@@ -18,7 +18,6 @@ const Signup: React.FC<Props> = (props) => {
 
       if (registeredUser != null) {
         setUser(registeredUser);
-        console.log(`El nombre es: ${user.name}`);
       } else {
         response = false;
       }
@@ -54,7 +53,6 @@ const Signup: React.FC<Props> = (props) => {
         props.navigation.goBack();
       } else {
         Toast.error("Falta dato o usuario existente.", "top");
-        console.log("Este usuario existe o falta algún dato.");
       }
     }
   };

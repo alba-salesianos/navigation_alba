@@ -3,7 +3,7 @@ import React from "react";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
-import { fetchUser } from "../../services/fetchUsers";
+import userService from "../../services/UserService";
 import Container, { Toast } from "toastify-react-native";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Signup">;
@@ -14,7 +14,7 @@ const Signup: React.FC<Props> = (props) => {
   const registerUsers = async (): Promise<boolean> => {
     let response = true;
     try {
-      const registeredUser = await fetchUser(formData, "register");
+      const registeredUser = await userService.fetchUser(formData, "register");
 
       if (registeredUser != null) {
         setUser(registeredUser);

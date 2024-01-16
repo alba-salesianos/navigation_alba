@@ -3,24 +3,21 @@ import React, { useContext } from "react";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
-import { fetchUser } from "../../services/fetchUsers";
+import userService from "../../services/UserService";
+
 import Container, { Toast } from "toastify-react-native";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 const Login: React.FC<Props> = (props) => {
-  const { user, setUser, setshowPortfolio, setCurrentUser } =
+  const { setUser, setshowPortfolio, setCurrentUser } =
     useContext(UserInfoContext);
 
   const loginUsers = async (): Promise<boolean> => {
     let response = true;
     try {
-      const loggedUser = await fetchUser(formData, "login");
-      if (loggedUser != null) {
-        setUser(loggedUser);
-      } else {
-        response = false;
-      }
+      const loggedUser = await userService.fetchUser(formData, "login");
+      loggedUser != null ? setUser(loggedUser) : (response = false);
     } catch (error) {
       console.error("Error during registration:", error);
       response = false;
@@ -44,13 +41,11 @@ const Login: React.FC<Props> = (props) => {
     if (formData.name == "" || formData.password == "") {
       Toast.warn("Capón, rellena los 2 campos.", "top");
     } else {
-      if (await loginUsers()) {
-        setCurrentUser(formData.name);
-        setshowPortfolio(true);
-        props.navigation.push("Homescreen");
-      } else {
-        Toast.error("Usuario o contraseña incorrecta.", "top");
-      }
+      (await loginUsers())
+        ? (setCurrentUser(formData.name),
+          setshowPortfolio(true),
+          props.navigation.push("Homescreen"))
+        : Toast.error("Usuario o contraseña incorrecta.", "top");
     }
   };
 

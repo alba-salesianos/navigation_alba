@@ -3,7 +3,7 @@ import React from "react";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../screens/StackHomescreen";
-import { logOut } from "../services/fetchUsers";
+import userService from "../services/UserService";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Homescreen">;
 
@@ -20,7 +20,7 @@ const Homescreen: React.FC<Props> = (props) => {
   };
 
   const handleLogout = () => {
-    console.log(logOut(user));
+    userService.logOut(user);
     setshowPortfolio(false);
   };
 

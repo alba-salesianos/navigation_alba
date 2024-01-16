@@ -12,7 +12,7 @@ const getInitRequest = (httpVerb: string, user: UserInfo) => {
   return init;
 };
 
-export const fetchUser = async (userData: UserInfo, mode: string) => {
+const fetchUser = async (userData: UserInfo, mode: string) => {
   try {
     const request: RequestInfo = LOGIN_API + mode;
 
@@ -51,7 +51,7 @@ export const fetchUser = async (userData: UserInfo, mode: string) => {
   }
 };
 
-export const logOut = async (userData: UserInfo) => {
+const logOut = async (userData: UserInfo) => {
   let message: string = "_";
   try {
     const request: RequestInfo = LOGIN_API + "logout";
@@ -74,3 +74,10 @@ export const logOut = async (userData: UserInfo) => {
     return null;
   }
 };
+
+const userService = {
+  fetchUser,
+  logOut,
+};
+
+export default userService;

@@ -4,7 +4,6 @@ import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
 import userService from "../../services/UserService";
-
 import Container, { Toast } from "toastify-react-native";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;

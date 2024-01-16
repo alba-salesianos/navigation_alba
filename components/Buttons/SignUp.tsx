@@ -15,12 +15,7 @@ const Signup: React.FC<Props> = (props) => {
     let response = true;
     try {
       const registeredUser = await userService.fetchUser(formData, "register");
-
-      if (registeredUser != null) {
-        setUser(registeredUser);
-      } else {
-        response = false;
-      }
+      registeredUser != null ? setUser(registeredUser) : (response = false);
     } catch (error) {
       console.error("Error during registration:", error);
       response = false;
@@ -49,11 +44,9 @@ const Signup: React.FC<Props> = (props) => {
     ) {
       Toast.warn("Capón, rellena los 3 campos.", "top");
     } else {
-      if (await registerUsers()) {
-        props.navigation.goBack();
-      } else {
-        Toast.error("Alguno de estos datos ya existe.", "top");
-      }
+      (await registerUsers())
+        ? props.navigation.goBack()
+        : Toast.error("Alguno de estos datos ya existe.", "top");
     }
   };
 

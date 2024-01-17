@@ -7,6 +7,7 @@ import StackHomescreen from "../screens/StackHomescreen";
 import SecretScreen from "./SecretScreen";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import TabPortfolio from "../screens/TabPortfolio";
+import RecorderScreen from "../screens/RecorderScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -47,6 +48,8 @@ const CustomDrawer = () => {
       {showPortfolio && (
         <Drawer.Screen name="Portfolio" component={TabPortfolio} />
       )}
+      <Drawer.Screen name="Grabadora de audio" component={RecorderScreen} />
+
       {checkSecret() && (
         <Drawer.Screen name="Secreto" component={SecretScreen} />
       )}

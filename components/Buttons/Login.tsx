@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../screens/StackHomescreen";
@@ -10,7 +10,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 const Login: React.FC<Props> = (props) => {
   const { setUser, setshowPortfolio, setCurrentUser } =
-    useContext(UserInfoContext);
+    React.useContext(UserInfoContext);
 
   const loginUsers = async (): Promise<boolean> => {
     let response = true;

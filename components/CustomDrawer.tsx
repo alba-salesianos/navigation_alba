@@ -7,7 +7,7 @@ import StackHomescreen from "../screens/StackHomescreen";
 import SecretScreen from "./SecretScreen";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import TabPortfolio from "../screens/TabPortfolio";
-import RecorderScreen from "../screens/RecorderScreen";
+import RecorderScreen from "../utils/Utils";
 
 const Drawer = createDrawerNavigator();
 

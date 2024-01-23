@@ -5,6 +5,7 @@ import { RecordingFile } from "../types/RecordingFile";
 import { Ionicons } from "@expo/vector-icons";
 import StorageService from "../services/StorageService";
 import { ScrollView } from "react-native-gesture-handler";
+import { getDurationFormatted } from "../utils/Utils";
 
 const RecorderScreen = () => {
   const [allFiles, setAllFiles] = React.useState<RecordingFile[]>([]);
@@ -77,15 +78,6 @@ const RecorderScreen = () => {
     } catch (error) {
       console.log("Error parando: ", error);
     }
-  };
-
-  const getDurationFormatted = (millis: number) => {
-    const minutes = millis / 1000 / 60;
-    const minutesDisplay = Math.floor(minutes);
-    const seconds = Math.round((minutes - minutesDisplay) * 60);
-    const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds;
-
-    return `${minutesDisplay}:${secondsDisplay}`;
   };
 
   const getRecordingLines = (): JSX.Element | JSX.Element[] | undefined => {

@@ -11,12 +11,10 @@ const RecorderScreen = () => {
   const [recording, setRecording] = React.useState<Audio.Recording>();
 
   React.useEffect(() => {
-    let isMounted = true;
-
-    const fetchData = async () => {
+    const fetchFiles = async () => {
       try {
         const readRecordings = await StorageService.readFile();
-        if (isMounted && readRecordings != null) {
+        if (readRecordings != null) {
           setAllFiles((prevFiles) => [...prevFiles, ...readRecordings]);
         }
       } catch (error) {
@@ -24,11 +22,7 @@ const RecorderScreen = () => {
       }
     };
 
-    fetchData();
-
-    return () => {
-      isMounted = false;
-    };
+    fetchFiles();
   }, []);
 
   const startRecording = async () => {
@@ -51,7 +45,6 @@ const RecorderScreen = () => {
 
   const stopRecording = async () => {
     try {
-      console.log("Stopping recording...");
       setRecording(undefined);
 
       await recording?.stopAndUnloadAsync();
@@ -70,7 +63,7 @@ const RecorderScreen = () => {
         updatedRecordings.push(newRecording);
 
         const recordingExists = allFiles.some(
-          (existingRecording) => existingRecording.file === newRecording.file
+          (checkRecording) => checkRecording.file === newRecording.file
         );
 
         if (!recordingExists) {
@@ -78,7 +71,7 @@ const RecorderScreen = () => {
 
           await StorageService.saveFile([...allFiles, newRecording]);
         } else {
-          console.log("Duplicate recording. Not adding to state.");
+          console.log("Grabación duplicada. No se añadirá a la lista.");
         }
       }
     } catch (error) {
@@ -125,7 +118,7 @@ const RecorderScreen = () => {
     await StorageService.saveFile([]);
   };
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <Pressable
           style={styles.button}
@@ -148,6 +141,10 @@ const RecorderScreen = () => {
 export default RecorderScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fce8e6",
+  },
   buttonContainer: {
     flexDirection: "row",
     alignSelf: "center",
@@ -191,6 +188,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 15,
     borderRadius: 50,
-    backgroundColor: "lightgrey",
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "grey",
   },
 });

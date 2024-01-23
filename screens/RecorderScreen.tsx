@@ -3,11 +3,33 @@ import { Audio } from "expo-av";
 import React from "react";
 import { RecordingFile } from "../types/RecordingFile";
 import { Ionicons } from "@expo/vector-icons";
+import StorageService from "../services/StorageService";
+import { ScrollView } from "react-native-gesture-handler";
 
 const RecorderScreen = () => {
   const [allFiles, setAllFiles] = React.useState<RecordingFile[]>([]);
   const [recording, setRecording] = React.useState<Audio.Recording>();
-  const [message, setMessage] = React.useState("");
+
+  React.useEffect(() => {
+    let isMounted = true;
+
+    const fetchData = async () => {
+      try {
+        const readRecordings = await StorageService.readFile();
+        if (isMounted && readRecordings != null) {
+          setAllFiles((prevFiles) => [...prevFiles, ...readRecordings]);
+        }
+      } catch (error) {
+        console.error("Error reading from file: " + error);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const startRecording = async () => {
     try {
@@ -20,7 +42,7 @@ const RecorderScreen = () => {
 
         setRecording(recording);
       } else {
-        setMessage("Conceda permisos de micrófono a la aplicación");
+        console.log("Conceda permisos de micrófono a la aplicación.");
       }
     } catch (error) {
       console.error("Failed to start recording: ", error);
@@ -29,12 +51,12 @@ const RecorderScreen = () => {
 
   const stopRecording = async () => {
     try {
-      console.log("Stopping recording..,");
+      console.log("Stopping recording...");
       setRecording(undefined);
 
       await recording?.stopAndUnloadAsync();
 
-      let updatedRecordings = [...allFiles];
+      let updatedRecordings: RecordingFile[] = [...allFiles];
 
       const soundFile = await recording?.createNewLoadedSoundAsync();
 
@@ -46,7 +68,18 @@ const RecorderScreen = () => {
         };
 
         updatedRecordings.push(newRecording);
-        setAllFiles(updatedRecordings);
+
+        const recordingExists = allFiles.some(
+          (existingRecording) => existingRecording.file === newRecording.file
+        );
+
+        if (!recordingExists) {
+          setAllFiles([...allFiles, newRecording]);
+
+          await StorageService.saveFile([...allFiles, newRecording]);
+        } else {
+          console.log("Duplicate recording. Not adding to state.");
+        }
       }
     } catch (error) {
       console.log("Error parando: ", error);
@@ -62,40 +95,51 @@ const RecorderScreen = () => {
     return `${minutesDisplay}:${secondsDisplay}`;
   };
 
-  const getRecordingLines = (): JSX.Element | JSX.Element[] => {
+  const getRecordingLines = (): JSX.Element | JSX.Element[] | undefined => {
     if (allFiles.length > 0) {
-      return allFiles.map((recordingLine: RecordingFile, index) => (
-        <View key={index} style={styles.row}>
-          <Text style={styles.fill}>
-            <Text style={{ fontWeight: "bold" }}>Grabación {index + 1}</Text>
-            {"\n"} {recordingLine.duration}
-          </Text>
-          <Pressable
-            style={styles.buttonPlay}
-            onPress={() => recordingLine.sound.replayAsync()}
-          >
-            <Ionicons name="play-outline" size={20} color={"white"} />
-          </Pressable>
-        </View>
-      ));
-    } else {
       return (
-        <View>
-          <Text>No hay grabaciones.</Text>
-        </View>
+        <ScrollView>
+          {allFiles.map((recordingLine: RecordingFile, index) => (
+            <View key={index} style={styles.row}>
+              <Text style={styles.fill}>
+                <Text style={{ fontWeight: "bold" }}>
+                  Grabación {index + 1}
+                </Text>
+                {"\n"} {recordingLine.duration}
+              </Text>
+              <Pressable
+                style={styles.buttonPlay}
+                onPress={() => recordingLine.sound.replayAsync()}
+              >
+                <Ionicons name="play-outline" size={20} color={"white"} />
+              </Pressable>
+            </View>
+          ))}
+        </ScrollView>
       );
     }
   };
+
+  const handleDelete = async () => {
+    setAllFiles([]);
+    await StorageService.saveFile([]);
+  };
   return (
     <View>
-      <Pressable
-        style={styles.button}
-        onPress={recording ? stopRecording : startRecording}
-      >
-        <Text style={styles.buttonText}>
-          {recording ? "Grabando..." : "Grabar"}
-        </Text>
-      </Pressable>
+      <View style={styles.buttonContainer}>
+        <Pressable
+          style={styles.button}
+          onPress={recording ? stopRecording : startRecording}
+        >
+          <Text style={styles.buttonText}>
+            {recording ? "Grabando..." : "Grabar"}
+          </Text>
+        </Pressable>
+
+        <Pressable style={styles.button} onPress={handleDelete}>
+          <Text style={styles.buttonText}>Borrar</Text>
+        </Pressable>
+      </View>
       {getRecordingLines()}
     </View>
   );
@@ -104,6 +148,10 @@ const RecorderScreen = () => {
 export default RecorderScreen;
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    flexDirection: "row",
+    alignSelf: "center",
+  },
   button: {
     margin: 20,
     alignItems: "center",

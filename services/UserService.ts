@@ -1,7 +1,7 @@
 import { UserInfo } from "../types/UserInfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const LOGIN_API = "http://172.16.103.246:8888/users/";
+const LOGIN_API = "http://172.16.100.71:8888/users/";
 
 const getInitRequest = (httpVerb: string, user: UserInfo) => {
   const init: RequestInit = {

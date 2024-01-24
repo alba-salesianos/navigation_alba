@@ -1,19 +1,18 @@
-import { RecordingFile } from "../types/RecordingFile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const saveFile = async (files: RecordingFile[]) => {
+const saveFile = async <T>(file: T, keyName: string) => {
   try {
-    if (files) {
-      await AsyncStorage.setItem("filesKey", JSON.stringify(files));
+    if (file) {
+      await AsyncStorage.setItem(keyName, JSON.stringify(file));
     }
   } catch (error) {
     console.error("Error while saving: " + error);
   }
 };
 
-const readFile = async (): Promise<RecordingFile[] | null> => {
+const readFile = async <T>(keyName: string): Promise<T | null> => {
   try {
-    const jsonValue = await AsyncStorage.getItem("filesKey");
+    const jsonValue = await AsyncStorage.getItem(keyName);
     if (jsonValue != null) {
       return JSON.parse(jsonValue);
     }

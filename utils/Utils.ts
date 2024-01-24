@@ -1,4 +1,4 @@
-export const getDurationFormatted = (millis: number) => {
+const getDurationFormatted = (millis: number) => {
   const minutes = millis / 1000 / 60;
   const minutesDisplay = Math.floor(minutes);
   const seconds = Math.round((minutes - minutesDisplay) * 60);
@@ -6,3 +6,9 @@ export const getDurationFormatted = (millis: number) => {
 
   return `${minutesDisplay}:${secondsDisplay}`;
 };
+
+const Utils = {
+  getDurationFormatted,
+};
+
+export default Utils;

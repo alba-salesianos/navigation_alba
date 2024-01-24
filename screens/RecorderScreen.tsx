@@ -5,7 +5,7 @@ import { RecordingFile } from "../types/RecordingFile";
 import { Ionicons } from "@expo/vector-icons";
 import StorageService from "../services/StorageService";
 import { ScrollView } from "react-native-gesture-handler";
-import { getDurationFormatted } from "../utils/Utils";
+import Utils from "../utils/Utils";
 
 const RecorderScreen = () => {
   const [allFiles, setAllFiles] = React.useState<RecordingFile[]>([]);
@@ -14,7 +14,9 @@ const RecorderScreen = () => {
   React.useEffect(() => {
     const fetchFiles = async () => {
       try {
-        const readRecordings = await StorageService.readFile();
+        const readRecordings: RecordingFile[] | null =
+          await StorageService.readFile("recKey");
+
         if (readRecordings != null) {
           setAllFiles((prevFiles) => [...prevFiles, ...readRecordings]);
         }
@@ -37,10 +39,10 @@ const RecorderScreen = () => {
 
         setRecording(recording);
       } else {
-        console.log("Conceda permisos de micrófono a la aplicación.");
+        console.log("Grant recording permissions to continue.");
       }
     } catch (error) {
-      console.error("Failed to start recording: ", error);
+      console.error("Failed to start recording: " + error);
     }
   };
 
@@ -50,33 +52,22 @@ const RecorderScreen = () => {
 
       await recording?.stopAndUnloadAsync();
 
-      let updatedRecordings: RecordingFile[] = [...allFiles];
+      const newRecording = await recording?.createNewLoadedSoundAsync();
 
-      const soundFile = await recording?.createNewLoadedSoundAsync();
-
-      if ("durationMillis" in soundFile!.status) {
-        let newRecording: RecordingFile = {
-          sound: soundFile!.sound,
-          duration: getDurationFormatted(soundFile!.status.durationMillis!),
+      if ("durationMillis" in newRecording!.status) {
+        let newAudioFile: RecordingFile = {
+          sound: newRecording!.sound,
+          duration: Utils.getDurationFormatted(
+            newRecording!.status.durationMillis!
+          ),
           file: recording!.getURI(),
         };
 
-        updatedRecordings.push(newRecording);
-
-        const recordingExists = allFiles.some(
-          (checkRecording) => checkRecording.file === newRecording.file
-        );
-
-        if (!recordingExists) {
-          setAllFiles([...allFiles, newRecording]);
-
-          await StorageService.saveFile([...allFiles, newRecording]);
-        } else {
-          console.log("Grabación duplicada. No se añadirá a la lista.");
-        }
+        setAllFiles((prevFiles) => [...prevFiles, newAudioFile]);
+        await StorageService.saveFile([...allFiles, newAudioFile], "recKey");
       }
     } catch (error) {
-      console.log("Error parando: ", error);
+      console.log("Failed to stop recording: ", error);
     }
   };
 
@@ -107,7 +98,7 @@ const RecorderScreen = () => {
 
   const handleDelete = async () => {
     setAllFiles([]);
-    await StorageService.saveFile([]);
+    await StorageService.saveFile([], "recKey");
   };
   return (
     <View style={styles.container}>

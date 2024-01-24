@@ -12,7 +12,7 @@ type UserInfoProviderProps = {
 function UserInfoProvider(props: UserInfoProviderProps) {
   const { children } = props;
 
-  const [showPortfolio, setshowPortfolio] = React.useState(false);
+  const [isLogged, setisLogged] = React.useState(false);
 
   let userDefault: UserInfo = {
     name: "root",
@@ -25,8 +25,8 @@ function UserInfoProvider(props: UserInfoProviderProps) {
   const [currentUser, setCurrentUser] = React.useState("");
 
   const defaultValue: UserInfoTypeContext = {
-    showPortfolio,
-    setshowPortfolio,
+    isLogged,
+    setisLogged,
     user,
     setUser,
     currentUser,

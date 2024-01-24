@@ -5,11 +5,11 @@ import { hobbiesData, hobbiesList } from "./HobbiesData";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
 
 const Portfolio = () => {
-  const { showPortfolio } = React.useContext(UserInfoContext);
+  const { isLogged } = React.useContext(UserInfoContext);
 
   return (
     <View style={styles.container}>
-      {showPortfolio ? (
+      {isLogged ? (
         <View>
           <View style={styles.infoContainer}>
             <Image

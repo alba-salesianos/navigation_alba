@@ -8,11 +8,11 @@ import userService from "../services/UserService";
 type Props = NativeStackScreenProps<RootStackParamList, "Homescreen">;
 
 const Homescreen: React.FC<Props> = (props) => {
-  const { currentUser, showPortfolio, setshowPortfolio, user } =
+  const { currentUser, isLogged, setisLogged, user } =
     React.useContext(UserInfoContext);
 
   const getTitle = (currentUser: string): string => {
-    if (showPortfolio) {
+    if (isLogged) {
       return "¡Te damos la bienvenida, " + currentUser + "!";
     } else {
       return "¡Te damos la bienvenida!";
@@ -21,7 +21,7 @@ const Homescreen: React.FC<Props> = (props) => {
 
   const handleLogout = () => {
     userService.logOut(user);
-    setshowPortfolio(false);
+    setisLogged(false);
   };
 
   return (
@@ -31,7 +31,7 @@ const Homescreen: React.FC<Props> = (props) => {
         style={styles.image}
         source={require("../assets/images/hakyeon.jpg")}
       />
-      {showPortfolio ? (
+      {isLogged ? (
         <Pressable style={styles.button} onPress={() => handleLogout()}>
           <Text style={styles.buttonText}>Cerrar sesión</Text>
         </Pressable>

@@ -9,7 +9,7 @@ import Container, { Toast } from "toastify-react-native";
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 const Login: React.FC<Props> = (props) => {
-  const { setUser, setshowPortfolio, setCurrentUser } =
+  const { setUser, setisLogged, setCurrentUser } =
     React.useContext(UserInfoContext);
 
   const loginUsers = async (): Promise<boolean> => {
@@ -42,7 +42,7 @@ const Login: React.FC<Props> = (props) => {
     } else {
       (await loginUsers())
         ? (setCurrentUser(formData.name),
-          setshowPortfolio(true),
+          setisLogged(true),
           props.navigation.push("Homescreen"))
         : Toast.error("Usuario o contraseña incorrecta.", "top");
     }

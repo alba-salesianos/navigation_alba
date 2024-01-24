@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
 export type UserInfoTypeContext = {
-  showPortfolio: boolean;
-  setshowPortfolio: Function;
+  isLogged: boolean;
+  setisLogged: Function;
   user: { name: string; email?: string; password: string };
   setUser: Function;
   currentUser: string;

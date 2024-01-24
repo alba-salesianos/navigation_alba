@@ -7,12 +7,12 @@ import StackHomescreen from "../screens/StackHomescreen";
 import SecretScreen from "./SecretScreen";
 import { UserInfoContext } from "../contexts/UserInfoContext";
 import TabPortfolio from "../screens/TabPortfolio";
-import RecorderScreen from "../utils/Utils";
+import RecorderScreen from "../screens/RecorderScreen";
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawer = () => {
-  const { user, showPortfolio } = React.useContext(UserInfoContext);
+  const { user, isLogged } = React.useContext(UserInfoContext);
 
   const checkSecret = (): boolean => {
     if (user.name == "secreto" && user.password == "123") {
@@ -45,10 +45,10 @@ const CustomDrawer = () => {
       screenOptions={drawerNavigatorScreenOptions}
     >
       <Drawer.Screen name="Pantalla de inicio" component={StackHomescreen} />
-      {showPortfolio && (
-        <Drawer.Screen name="Portfolio" component={TabPortfolio} />
+      {isLogged && <Drawer.Screen name="Portfolio" component={TabPortfolio} />}
+      {isLogged && (
+        <Drawer.Screen name="Grabadora de audio" component={RecorderScreen} />
       )}
-      <Drawer.Screen name="Grabadora de audio" component={RecorderScreen} />
 
       {checkSecret() && (
         <Drawer.Screen name="Secreto" component={SecretScreen} />
